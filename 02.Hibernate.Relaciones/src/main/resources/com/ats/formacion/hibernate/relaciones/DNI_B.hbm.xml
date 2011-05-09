@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ats.formacion.hibernate.relaciones">
+
+	<class name="DNI_B" table="bi_rel_dnis">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<property name="numero" />
+		<property name="letra" />
+		<one-to-one name="persona" /> 
+	</class>
+	
+</hibernate-mapping>

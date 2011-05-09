@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ats.formacion.hibernate.relaciones">
+	<class name="Persona" table="rel_personas">
+		<id name="id" column="id">
+			<generator class="foreign">
+				<param name="property">dni</param>
+			</generator>
+		</id>
+		
+		<property name="nombre" />
+		<!-- 1.- ONE2ONE misma key unidireccional -->
+		<one-to-one name="dni" cascade="delete" />
+
+		<!-- 2.- ONE2ONE columna extra para el join unidir -->
+		<many-to-one name="partida" cascade="save-update" unique="true"
+			not-null="true" />
+
+		<!-- 3.- ONE2MANY columna extra en la otra entidad para el join unidir -->
+		<set name="vehiculo" cascade="save-update" lazy="false">
+			<key column="idpersona" />
+			<one-to-many class="Vehiculo" />
+		</set>
+
+		<!-- 4.- ONE2MANY tabla extra  join unidir -->
+		<set name="alquileres" cascade="save-update"
+			table="personaAlquileres">
+			<key column="idpersona" />
+			<!-- con el unique un alquier sólo puede estar asociado a una persona concreta -->
+			<many-to-many class="Alquiler" column="idalquiler"
+				unique="true" />
+		</set>
+
+		<!-- 5.- MANY2MANY -->
+		<set name="direcciones" cascade="save-update"
+			table="personasDirecciones">
+			<key column="idpersona" />
+			<many-to-many class="Direccion" column="iddir" />
+		</set>
+		<!-- 7.- ONE2ONE bidir -->
+		<one-to-one name="dni_b" cascade="save-update,delete" />
+		
+		<!-- 8.- ONE2ONE columna extra para el join bidir -->
+		<many-to-one name="partida_b" cascade="all"  
+					unique="true"	not-null="true" />
+					
+		<!-- 9.- ONE2MANY columna extra bidir -->
+		<set name="vehiculo_b" cascade="save-update" inverse="true">
+			<key column="idpersona" />
+			<one-to-many class="Vehiculo_B" />
+		</set>					
+					
+		<!-- 10.- ONE2MANY tabla extra  join bidir -->
+		<set name="alquileres_b" cascade="save-update"
+			table="personaAlquileres_b">
+			<key column="idpersona" />
+			<!-- con el unique un alquier sólo puede estar asociado a una persona concreta -->
+			<many-to-many class="Alquiler_B" column="idalquiler"
+				unique="true" />
+		</set>					
+
+		<!-- 11.- MANY2MANY bidir -->
+		<set name="direcciones_b" cascade="save-update"
+			table="bidir_personasDirecciones">
+			<key column="idpersona" />
+			<many-to-many class="Direccion_B" column="iddir" />
+		</set>	
+		
+		<!-- 12.- ONE2MANY tabla extra  join unidir con campos -->
+		<set name="alquileres_extra" cascade="save-update"
+			table="personaAlquileresExtraInfo">
+			<key column="idpersona" />
+			<composite-element class="RelacionConCampos">
+				<many-to-one name="alquiler" class="Alquiler" 
+					column="idalquiler" cascade="save-update" />
+				<property name="nombre"/>
+				<property name="fecha"/>
+			</composite-element>		
+		</set>	
+		<!-- 13.- ONE2MANY RElacion ternaria -->
+		<set name="alquileres_extra_ternario" cascade="save-update"
+			table="personaAlquileresExtraTernario">
+			<key column="idpersona" />
+			<composite-element class="RelacionTernaria">
+				<many-to-one name="a" class="Alquiler"
+					column="idalquiler" cascade="save-update"/>
+				<many-to-one name="u" class="Usuario"
+					column="idusario" cascade="save-update"/>
+			</composite-element>
+				
+		</set>	
+		<!-- 6.- ONE2ONE tabla extra para el join unidir -->
+		<join table="personapartida">
+			<key column="idpersona" />
+			<many-to-one name="partida2" cascade="save-update"
+				unique="true" not-null="true" />
+		</join>
+	</class>
+
+
+</hibernate-mapping>

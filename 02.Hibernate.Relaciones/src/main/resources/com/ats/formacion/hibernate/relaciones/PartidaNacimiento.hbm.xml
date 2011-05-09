@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ats.formacion.hibernate.relaciones">
+	<class name="PartidaNacimiento" table="rel_partidas">
+		<id name="id" column="id">
+			<generator class="native" />
+		</id>
+		<property name="numero" />
+		<property name="letra" />
+	</class>
+
+</hibernate-mapping>

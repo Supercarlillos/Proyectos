@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<context:component-scan base-package="com.ats.formacion.hibernate.daogenerico"></context:component-scan>
+<!-- Configuración del DataSource como bean -->
+	<bean id="myDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql:///hibernatedb</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>root</value>
+		</property>
+	</bean>
+	
+	<!-- Configuración de Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="myDataSource" />
+		</property>
+		<!-- Must references all OR mapping files. -->
+		<property name="mappingResources">
+			<list>
+				<value>com/ats/formacion/hibernate/daogenerico/modelo/Person.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.connection.pool_size">1</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- Configuración del Transaction Manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 
+		Configuración del Advice de Transaccionalidad.
+		Si el Transaction Manager lo definimos con id="transactionManager" no es necesario
+		definir el atributo transaction-manager
+	-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="create*" 	propagation="REQUIRED"/>
+			<tx:method name="delete*" 	propagation="REQUIRED" isolation="SERIALIZABLE" timeout="60"/>
+			<tx:method name="update*" 	propagation="REQUIRED" isolation="SERIALIZABLE" timeout="60"/>
+			<tx:method name="find*" 	propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- Configuración del Advisor -->
+	<aop:config>
+		<aop:advisor 
+			advice-ref="txAdvice"
+			pointcut="execution(* *..GenericDao.*(..))"/>
+	</aop:config>
+	
+	<bean id="personDao" class="com.ats.formacion.hibernate.daogenerico.impl.PersonDaoHibernateImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+
+</beans>
