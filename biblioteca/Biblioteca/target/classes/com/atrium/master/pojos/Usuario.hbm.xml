@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.atrium.master.pojos">
+
+	<class name="Usuario" table="Usuarios">
+		<id name="id" column="id">
+			<generator class="native" />
+		</id>
+		<property name="numeroSocio" />
+		<property name="dni" />
+		<property name="nombre" />
+		<property name="apellidos" />
+		<property name="telefono" />
+		<set name="listaPrestamo" cascade="save-update" table="prestamos">
+			<key column="idUsuario" />
+			<many-to-many class="Prestamo" column="idPrestamo" />
+		</set>
+	</class>
+</hibernate-mapping>

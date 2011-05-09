@@ -6,61 +6,79 @@ import java.util.Date;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class Prestamo implements Serializable{
-	
+public class Prestamo implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long Identificador;
-	private Long numSocio;
+
+	private Long id;
 	private Date fechaSalida;
 	private Date fechaLimiteEntrega;
 	private Date fechaEntrega;
-		
-	
-	public Long getIdentificador() {
-		return Identificador;
-	}
-	
+
+	private Libro libro;
+	private Usuario usuario;
+
 	public Prestamo() {
 	}
 
-	public Prestamo(Long identificador, Long numeroSocio,
-			Date fechaSalida, Date fechaLimiteEntrega, Date fechaEntrega) {
+	public Prestamo(Date fechaSalida, Date fechaLimiteEntrega, Date fechaEntrega) {
 		super();
-		Identificador = identificador;
-		this.numSocio = numeroSocio;
 		this.fechaSalida = fechaSalida;
 		this.fechaLimiteEntrega = fechaLimiteEntrega;
 		this.fechaEntrega = fechaEntrega;
 	}
 
-	public Long getNumeroSocio() {
-		return numSocio;
-	}
-	public void setNumeroSocio(Long numeroSocio) {
-		this.numSocio = numeroSocio;
-	}
 	public Date getFechaSalida() {
 		return fechaSalida;
 	}
+
 	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
+
 	public Date getFechaLimiteEntrega() {
 		return fechaLimiteEntrega;
 	}
+
 	public void setFechaLimiteEntrega(Date fechaLimiteEntrega) {
 		this.fechaLimiteEntrega = fechaLimiteEntrega;
 	}
+
 	public Date getFechaEntrega() {
 		return fechaEntrega;
 	}
+
 	public void setFechaEntrega(Date fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
-	
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
+	}
+
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
@@ -71,5 +89,5 @@ public class Prestamo implements Serializable{
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-	
+
 }

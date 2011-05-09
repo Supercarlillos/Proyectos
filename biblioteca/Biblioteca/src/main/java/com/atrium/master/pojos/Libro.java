@@ -5,68 +5,76 @@ import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class Libro implements Serializable{
+public class Libro implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long Identificador;
-	private String Isb;
-	private String Titulo;
-	private String Autor;
-	private String Sipnosis;
+
+	private Long id;
+	private String isb;
+	private String titulo;
+	private String autor;
+	private String sipnosis;
+	private Prestamo prestamo;
 
 	public Libro() {
 	}
 
-	public Libro(Long identificador, String isb, String titulo,
-			String autor, String sipnosis) {
-		Identificador = identificador;
-		Isb = isb;
-		Titulo = titulo;
-		Autor = autor;
-		Sipnosis = sipnosis;
+	public Libro(String isb, String titulo, String autor, String sipnosis) {
+		this.isb = isb;
+		this.titulo = titulo;
+		this.autor = autor;
+		this.sipnosis = sipnosis;
 	}
 
 	public String getIsb() {
-		return Isb;
+		return isb;
 	}
 
 	public void setIsb(String isb) {
-		Isb = isb;
+		this.isb = isb;
 	}
 
 	public String getTitulo() {
-		return Titulo;
+		return titulo;
 	}
 
 	public void setTitulo(String titulo) {
-		Titulo = titulo;
+		this.titulo = titulo;
 	}
 
 	public String getAutor() {
-		return Autor;
+		return autor;
 	}
 
 	public void setAutor(String autor) {
-		Autor = autor;
+		this.autor = autor;
 	}
 
 	public String getSipnosis() {
-		return Sipnosis;
+		return sipnosis;
 	}
 
 	public void setSipnosis(String sipnosis) {
-		Sipnosis = sipnosis;
+		this.sipnosis = sipnosis;
 	}
 
-	public void setIdentificador(Long identificador) {
-		Identificador = identificador;
+	public void setid(Long identificador) {
+		id = identificador;
 	}
 
-	public Long getIdentificador() {
-		return Identificador;
+	public Long getid() {
+		return id;
+	}
+
+	public void setPrestamo(Prestamo prestamo) {
+		this.prestamo = prestamo;
+	}
+
+	public Prestamo getPrestamo() {
+		return prestamo;
 	}
 
 	@Override
