@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql:///biblioteca</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.default_catalog">biblioteca</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">create</property>
+        <property name="current_session_context_class">thread</property>
+        
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Persona.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Alquiler_B.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Alquiler.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Direccion.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Direccion_B.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/DNI.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/DNI_B.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/PartidaNacimiento.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/PartidaNacimiento_B.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/PartidaNacimiento2.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Usuario.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Vehiculo.hbm.xml"/>
+        <mapping resource="com/ats/formacion/hibernate/relaciones/Vehiculo_B.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
