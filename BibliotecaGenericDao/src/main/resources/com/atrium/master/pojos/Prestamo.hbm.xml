@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.atrium.master.pojos">
+	<class name="Prestamo" table="Prestamos">
+		<id name="id" column="id" >
+			<generator class="native" />
+		</id>
+		<property name="fechaSalida" />
+		<property name="fechaLimiteEntrega" />
+		<property name="fechaEntrega" />
+		<one-to-one name="libro" cascade="save-update" />
+		<one-to-one name="usuario" cascade="save-update" />
+		<!-- 10.- ONE2MANY tabla extra join bidirecional 
+		<set name="usuario" cascade="save-update" table="prestamosUsuario">
+			<key column="idprestamo" />
+			con el unique un alquier sólo puede estar asociado a una persona 
+				concreta
+			<many-to-many class="Usuario" column="idUsuario" unique="true" />
+		</set> -->
+	</class>
+</hibernate-mapping>
