@@ -1,4 +1,4 @@
-package com.atrium.master.pojos;
+package com.atrium.master.services.helper.PojosJDBCTest;
 
 import java.io.Serializable;
 
@@ -9,31 +9,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value = "prototype")
-public class Libro implements Serializable {
+public class LibroPojoJDBCTest implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
 	private String isb;
 	private String titulo;
 	private String autor;
 	private String sipnosis;
-	private Prestamo prestamo;
 
-	public Libro() {
+
+	public LibroPojoJDBCTest() {
 	}
 
-	public Libro(String isb, String titulo, String autor, String sipnosis) {
-		this.isb = isb;
-		this.titulo = titulo;
-		this.autor = autor;
-		this.sipnosis = sipnosis;
-	}
-	public Libro(Long id,String isb, String titulo, String autor, String sipnosis) {
-		this.id=id;
+	public LibroPojoJDBCTest(String isb, String titulo, String autor, String sipnosis) {
 		this.isb = isb;
 		this.titulo = titulo;
 		this.autor = autor;
@@ -72,22 +64,7 @@ public class Libro implements Serializable {
 		this.sipnosis = sipnosis;
 	}
 
-	public void setid(Long identificador) {
-		id = identificador;
-	}
-
-	public Long getid() {
-		return id;
-	}
-
-	public void setPrestamo(Prestamo prestamo) {
-		this.prestamo = prestamo;
-	}
-
-	public Prestamo getPrestamo() {
-		return prestamo;
-	}
-
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

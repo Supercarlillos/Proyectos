@@ -5,9 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.atrium.master.dao.GenericDao;
@@ -34,19 +32,10 @@ public abstract class GenericHibernateDaoImpl<T extends Serializable, ID extends
 
 	}
 
-	/*
-	 * public void delete(T element) { getHibernateTemplate().delete(element); }
-	 * 
-	 * public List<T> findAll() {
-	 * 
-	 * return findByCriteria(); }
-	 * 
-	 * public void update(T element) {
-	 * getHibernateTemplate().saveOrUpdate(element); } public void flush() {
-	 * getHibernateTemplate().flush(); }
-	 * 
-	 * public void clear() { getHibernateTemplate().clear(); }
-	 */
+	public List<T> findAll() {
+		return findByCriteria();
+	}
+
 	@SuppressWarnings("unchecked")
 	protected List<T> findByCriteria(Criterion... criterion) {
 		Criteria crit = getSession().createCriteria(getPersistentClass());
@@ -64,6 +53,22 @@ public abstract class GenericHibernateDaoImpl<T extends Serializable, ID extends
 
 	public void setPersistentClass(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
+	}
+
+	public void update(T element) {
+		getHibernateTemplate().saveOrUpdate(element);
+	}
+
+	public void delete(T element) {
+		getHibernateTemplate().delete(element);
+	}
+
+	public void flush() {
+		getHibernateTemplate().flush();
+	}
+
+	public void clear() {
+		getHibernateTemplate().clear();
 	}
 
 }

@@ -18,7 +18,7 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
-	<bean id="libroTest" class="com.atrium.master.services.helper.LibroTest">
+	<bean id="libroJDBCTest" class="com.atrium.master.services.helper.LibroJDBCTest">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 

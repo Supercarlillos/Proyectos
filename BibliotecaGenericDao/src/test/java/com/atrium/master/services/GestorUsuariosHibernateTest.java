@@ -19,7 +19,7 @@ import com.atrium.master.services.helper.PojosJDBCTest.LibroPojoJDBCTest;
 
 @ContextConfiguration(locations = { "classpath:spring/test-context.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class GestorLibrosHibernateTest {
+public class GestorUsuariosHibernateTest {
 
 	@Before
 	public void inicializar() {
