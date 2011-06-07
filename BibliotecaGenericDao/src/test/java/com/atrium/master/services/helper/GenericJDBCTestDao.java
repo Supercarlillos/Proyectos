@@ -6,7 +6,9 @@ public interface GenericJDBCTestDao<T extends Serializable, ID extends Serializa
 
 	public ID save(T object, String TName);
 
-	public int delete(ID object, String TName);
+	public int deleteById(ID object, String TName);
+	
+	public int deleteTable(String TName);
 
 	public T getById(ID object, String TName);
 

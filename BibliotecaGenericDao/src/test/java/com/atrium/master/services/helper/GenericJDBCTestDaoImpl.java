@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public abstract class GenericJDBCTestDaoImpl<T extends Serializable, ID extends 
 	private StringBuffer values = new StringBuffer();
 	private String INSERT_SQL;
 	private String nombreTabla;
-	
+
 	@Inject
 	private ReflexionUtils reflexionUtils;
 
@@ -36,7 +37,6 @@ public abstract class GenericJDBCTestDaoImpl<T extends Serializable, ID extends 
 		this.objeto = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
-
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public T getById(ID identificador, String TName) {
@@ -48,8 +48,12 @@ public abstract class GenericJDBCTestDaoImpl<T extends Serializable, ID extends 
 
 	}
 
-	public int delete(ID identificador, String TName) {
+	public int deleteTable(String TName) {
+		String DELETE_SQL = "DELETE FROM " + TName;
+		return getJdbcTemplate().update(DELETE_SQL);
+	};
 
+	public int deleteById(ID identificador, String TName) {
 		String DELETE_SQL = "DELETE FROM " + TName + " WHERE id=?";
 		return getJdbcTemplate().update(DELETE_SQL,
 				new Object[] { identificador });
@@ -97,8 +101,20 @@ public abstract class GenericJDBCTestDaoImpl<T extends Serializable, ID extends 
 					else if (isparVariableValorInteger())
 						preparedStatement.setInt(posicion,
 								(Integer) parVariableValor.getValue());
+					else if (isparVariableValorLong())
+						preparedStatement.setLong(posicion,
+								(Long) parVariableValor.getValue());
+					else if (isparVariableValorDate()){
+						Date sqlDate = new Date(((java.util.Date)parVariableValor.getValue()).getTime());
+						preparedStatement.setDate(posicion,sqlDate);
+					}else
+						preparedStatement.setNull(posicion,1);
 					posicion++;
 				}
+			}
+
+			private boolean isparVariableValorDate() {
+				return parVariableValor.getValue() instanceof java.util.Date;
 			}
 
 			private boolean isparVariableValorInteger() {
@@ -107,6 +123,10 @@ public abstract class GenericJDBCTestDaoImpl<T extends Serializable, ID extends 
 
 			private boolean isparVariableValorString() {
 				return parVariableValor.getValue() instanceof String;
+			}
+
+			private boolean isparVariableValorLong() {
+				return parVariableValor.getValue() instanceof Long;
 			}
 		};
 	}

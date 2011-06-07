@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -21,8 +18,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<context:property-placeholder location="jdbc.properties"/>
+
+	<context:property-placeholder location="jdbc.properties" />
 
 	<!-- Configuración del DataSource como bean -->
 	<bean id="myDataSource"
@@ -42,8 +39,7 @@
 	</bean>
 
 	<!-- Configuración de Hibernate SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">
 			<ref local="myDataSource" />
 		</property>
@@ -57,9 +53,7 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">
-					org.hibernate.dialect.MySQLDialect
-				</prop>
+				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.connection.pool_size">1</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">create</prop>
@@ -79,7 +73,6 @@
 		transaction-manager -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-		
 			<tx:method name="create*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" isolation="SERIALIZABLE"
 				timeout="60" />
@@ -97,6 +90,13 @@
 	<bean id="librosDaoImpl" class="com.atrium.master.dao.impl.LibrosDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="usuariosDaoImpl" class="com.atrium.master.dao.impl.UsuariosDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="prestamosDaoImpl" class="com.atrium.master.dao.impl.PrestamosDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
 	<context:annotation-config />
 
 </beans>

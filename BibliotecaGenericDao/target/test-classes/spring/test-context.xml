@@ -7,8 +7,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<import resource="configuration.xml" />
-	
-	<context:property-placeholder location="jdbc.properties"/>
+
+	<context:property-placeholder location="jdbc.properties" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -19,6 +19,14 @@
 	</bean>
 
 	<bean id="libroJDBCTest" class="com.atrium.master.services.helper.LibroJDBCTest">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="usuarioJDBCTest" class="com.atrium.master.services.helper.UsuarioJDBCTest">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="prestamoJDBCTest" class="com.atrium.master.services.helper.PrestamoJDBCTest">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 

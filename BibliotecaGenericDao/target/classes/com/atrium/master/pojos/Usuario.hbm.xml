@@ -13,7 +13,7 @@
 		<property name="nombre" />
 		<property name="apellidos" />
 		<property name="telefono" />
-		<set name="listaPrestamo" cascade="save-update">
+		<set name="listaPrestamo" cascade="save-update,delete">
 			<key column="idUsuario" />
 			<many-to-many class="Prestamo" column="idPrestamo" />
 		</set>

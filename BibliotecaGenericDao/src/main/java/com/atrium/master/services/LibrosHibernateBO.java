@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.atrium.master.dao.LibrosDao;
 import com.atrium.master.pojos.Libro;
-import com.atrium.master.services.helper.PojosJDBCTest.LibroPojoJDBCTest;
 
 @Service
 public class LibrosHibernateBO {
